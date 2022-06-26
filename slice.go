@@ -2,11 +2,12 @@ package slice
 
 import "errors"
 
-func Map[P any, R any](data []P, fn func(P) R) (result []R) {
+func Map[P any, R any](data []P, fn func(P) R) []R {
+	result := make([]R, 0, len(data))
 	for _, item := range data {
 		result = append(result, fn(item))
 	}
-	return
+	return result
 }
 
 func Contains[T comparable](data []T, e T) bool {
