@@ -10,6 +10,16 @@ func Map[P any, R any](data []P, fn func(P) R) []R {
 	return result
 }
 
+func Filter[P any](data []P, fn func(P) bool) []P {
+	result := make([]P, 0)
+	for _, item := range data {
+		if fn(item) {
+			result = append(result, item)
+		}
+	}
+	return result
+}
+
 func Contains[T comparable](data []T, e T) bool {
 	for _, item := range data {
 		if item == e {
