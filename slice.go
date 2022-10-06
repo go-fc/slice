@@ -2,22 +2,22 @@ package slice
 
 import "errors"
 
-func Map[P any, R any](data []P, fn func(P) R) []R {
-	result := make([]R, 0, len(data))
+var ErrNotFound = errors.New("not found")
+
+func Map[P any, R any](data []P, fn func(P) R) (r []R) {
 	for _, item := range data {
-		result = append(result, fn(item))
+		r = append(r, fn(item))
 	}
-	return result
+	return
 }
 
-func Filter[P any](data []P, fn func(P) bool) []P {
-	result := make([]P, 0)
+func Filter[P any](data []P, fn func(P) bool) (r []P) {
 	for _, item := range data {
 		if fn(item) {
-			result = append(result, item)
+			r = append(r, item)
 		}
 	}
-	return result
+	return
 }
 
 func Contains[T comparable](data []T, e T) bool {
@@ -35,9 +35,23 @@ func Find[T any](data []T, fn func(T) bool) (r T, err error) {
 			return item, nil
 		}
 	}
-	return r, errors.New("not found")
+	return r, ErrNotFound
 }
 
-func Copy[T any](data []T) []T {
-	return append(make([]T, 0, len(data)), data...)
+func Copy[T any](data []T) (r []T) {
+	return append(r, data...)
+}
+
+func ToAny[T any](list []T) (r []any) {
+	for _, item := range list {
+		r = append(r, item)
+	}
+	return
+}
+
+func Safe[T any](data []T, index int) (val T) {
+	if len(data) > index {
+		return data[index]
+	}
+	return
 }
