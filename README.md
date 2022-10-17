@@ -7,13 +7,13 @@
 Use go get.
 
 ```shell
-go get github.com/go-funcards/slice
+go get github.com/go-fc/slice
 ```
 
 Then import **slice** package into your own code.
 
 ```go
-import "github.com/go-funcards/slice"
+import "github.com/go-fc/slice"
 ```
 
 ## License
